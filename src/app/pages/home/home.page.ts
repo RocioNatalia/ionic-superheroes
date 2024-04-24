@@ -39,12 +39,12 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     SuperheroItemListComponent,
     TranslateModule,
   ],
-  providers : [TranslateService]
+  providers: [TranslateService],
 })
 export class HomePage {
   private data = inject(DataService);
   paletteToggle = false;
-  heroesList: HeroData[] = heroes;
+  heroesList: HeroData[] = [];
 
   constructor() {
     this.getHeroes();
@@ -57,7 +57,11 @@ export class HomePage {
   }
 
   getHeroes() {
-    this.heroesList = heroes;
-    //this.data.getHeroes().subscribe((res: HeroData[]) => {});
+    this.data.getHeroes().subscribe(
+      (res: HeroData[]) => {
+        this.heroesList = res;
+      },
+      (error) => {}
+    );
   }
 }

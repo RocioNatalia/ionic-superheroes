@@ -19,9 +19,14 @@ export class SuperheroeDetailPage implements OnInit {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id') as string;
-    this.hero = heroes.find((hero) => hero.id === parseInt(id, 10));
-   
-   // this.data.getHeroById(parseInt(id, 10)).subscribe();
+
+    this.data.getHeroById(parseInt(id, 10)).subscribe(
+      (res) => {
+        this.hero = res;
+      },
+      (error) => {
+      }
+    );
   }
 
   getBackButtonText() {

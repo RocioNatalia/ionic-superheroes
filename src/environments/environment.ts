@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiURL : 'https://gateway.marvel.com/v1/public',
-  apiKey : '95b6e8bf1d92cad68fafc847cefe9b3d',
-  apiKey2 : 'd72a0f49065fdbdaf4a021b02ca7a4cf92df3f4d'
+  apiURL: 'https://gateway.marvel.com/v1/public',
+  apiPublicKey: '95b6e8bf1d92cad68fafc847cefe9b3d',
+  apiHashKey: 'd72a0f49065fdbdaf4a021b02ca7a4cf92df3f4d',
 };
 
 /*
