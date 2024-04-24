@@ -1,0 +1,7 @@
+{
+  "name": "ionic-superheroes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
