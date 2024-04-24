@@ -64,4 +64,11 @@ export class HomePage {
       (error) => {}
     );
   }
+
+  toggleChange(ev: { detail: { checked: any } }) {
+    this.toggleDarkPalette(ev.detail.checked);
+  }
+  toggleDarkPalette(shouldAdd: boolean | undefined) {
+    document.documentElement.classList.toggle('ion-palette-dark', shouldAdd);
+  }
 }

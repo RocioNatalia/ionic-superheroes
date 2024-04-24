@@ -3,6 +3,9 @@
     <ion-title>
       {{'SUPERHERO_LIST' | translate}}
     </ion-title>
+     <ion-buttons slot="end">
+      <ion-toggle (ionChange)="toggleChange($event)" justify="space-between">Modo oscuro</ion-toggle> 
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
