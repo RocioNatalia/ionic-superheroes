@@ -1,83 +1,53 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { HeroData } from './heros';
+import { Observable, catchError, map } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
 
-export interface Message {
-  fromName: string;
-  subject: string;
-  date: string;
-  id: number;
-  read: boolean;
-}
+const API_URL = `${environment.apiURL}`;
+const API_KEY = `${environment.apiKey}`;
+const API_HASH = `${environment.apiKey2}`;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  public messages: Message[] = [
-    {
-      fromName: 'Matt Chorsey',
-      subject: 'New event: Trip to Vegas',
-      date: '9:32 AM',
-      id: 0,
-      read: false
-    },
-    {
-      fromName: 'Lauren Ruthford',
-      subject: 'Long time no chat',
-      date: '6:12 AM',
-      id: 1,
-      read: false
-    },
-    {
-      fromName: 'Jordan Firth',
-      subject: 'Report Results',
-      date: '4:55 AM',
-      id: 2,
-      read: false
-    },
-    {
-      fromName: 'Bill Thomas',
-      subject: 'The situation',
-      date: 'Yesterday',
-      id: 3,
-      read: false
-    },
-    {
-      fromName: 'Joanne Pollan',
-      subject: 'Updated invitation: Swim lessons',
-      date: 'Yesterday',
-      id: 4,
-      read: false
-    },
-    {
-      fromName: 'Andrea Cornerston',
-      subject: 'Last minute ask',
-      date: 'Yesterday',
-      id: 5,
-      read: false
-    },
-    {
-      fromName: 'Moe Chamont',
-      subject: 'Family Calendar - Version 1',
-      date: 'Last Week',
-      id: 6,
-      read: false
-    },
-    {
-      fromName: 'Kelly Richardson',
-      subject: 'Placeholder Headhots',
-      date: 'Last Week',
-      id: 7,
-      read: false
-    }
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  public getHeroes(): Observable<HeroData[] | any> {
+    const timestamp = new Date().getTime().toString();
+    const hash = CryptoJS.MD5(timestamp + API_KEY + API_HASH);
 
-  public getMessages(): Message[] {
-    return this.messages;
+    return this.http
+      .get<any>(
+        `${API_URL}/characters?ts=${timestamp}&apikey=${API_KEY}&hash=${hash}`
+      )
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((error) => {
+          return error;
+        })
+      );
   }
 
-  public getMessageById(id: number): Message {
-    return this.messages[id];
+  public getHeroById(id: number): Observable<HeroData | any> {
+    const timestamp = new Date().getTime().toString();
+    const hash = CryptoJS.MD5(timestamp + API_KEY + API_HASH);
+
+    return this.http
+      .get<any>(
+        `${API_URL}/characters/${id}?ts=${timestamp}&apikey=${API_KEY}&hash=${hash}`
+      )
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((error) => {
+          return error;
+        })
+      );
   }
 }

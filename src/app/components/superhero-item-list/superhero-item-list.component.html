@@ -1,0 +1,8 @@
+<ion-item *ngIf="heroData" [routerLink]="'/hero/' + heroData.id" [detail]="false">
+  <ion-thumbnail slot="start">
+    <img src="{{heroData.thumbnail}}"
+      onerror="this.onerror=null; this.src='https://ionicframework.com/docs/img/demos/thumbnail.svg'"
+      alt="{{heroData.description}}">
+  </ion-thumbnail>
+  <ion-label>{{ heroData.name }}</ion-label>
+</ion-item>
